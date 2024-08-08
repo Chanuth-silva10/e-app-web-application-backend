@@ -1,4 +1,4 @@
-name: CI/CD Pipeline
+name: Continuous Integration
 
 on:
   pull_request:
@@ -16,15 +16,21 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
-
-    - name: Set up Node.js  
+      
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
 
-    - name: Install dependencies
-      run: npm install
+    - name: Test user Service test suite
+      working-directory: ./controller/user
+      run: |
+        npm ci
+        npm test
+    
+    - name: Test user product test suite
+      working-directory: ./controller/product
+      run: |
+        npm ci
+        npm test
 
-    - name: Run test suites
-      run: npm run test
