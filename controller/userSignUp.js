@@ -46,6 +46,7 @@ async function userSignUpController(req, res) {
       message: "User created Successfully!",
     });
   } catch (err) {
+    console.log("err", err.message)
     res.json({
       message: err.message || err,
       error: true,
